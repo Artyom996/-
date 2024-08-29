@@ -14,7 +14,8 @@ class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
-    phone_number = db.Column(db.String(20), nullable=False)
+    startvac = db.Column(db.String(100), nullable=False)
+    endvac = db.Column(db.String(100), nullable=False)
 
 # Создание таблицы в базе данных
 with app.app_context():
