@@ -1,1 +1,1 @@
-# -
+# Flask application with PostgreSQL
