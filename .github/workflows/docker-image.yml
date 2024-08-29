@@ -19,10 +19,10 @@ jobs:
       run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag 4836297/postgres-application:vac1
+      run: docker build . --file Dockerfile --tag 4836297/postgres-application:vac2
 
     - name: Push The Docker image into Docker Hub
-      run: docker push 4836297/postgres-application:vac1
+      run: docker push 4836297/postgres-application:vac2
 
     - name: Say Hello
       run: echo "Hello, $GITHUB_ACTOR!"
