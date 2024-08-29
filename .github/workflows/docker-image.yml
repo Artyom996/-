@@ -7,9 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -17,9 +15,29 @@ jobs:
 
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
-    
+
+    - name: Set image tag
+      id: tag
+      run: |
+        # Define the initial tag and version prefix
+        echo "TAG_BASE=4836297/postgres-application" >> $GITHUB_ENV
+        echo "VERSION_PREFIX=v" >> $GITHUB_ENV
+        
+        # Fetch the latest version tag from Docker Hub
+        LATEST_VERSION=$(curl -s -u ${{ secrets.DOCKER_HUB_USERNAME }}:${{ secrets.DOCKER_HUB_PASSWORD }} https://hub.docker.com/v2/repositories/4836297/postgres-application/tags | jq -r '.results[0].name' | sed 's/v//')
+        
+        # If no tag found, start with 1; otherwise, increment the version
+        if [ -z "$LATEST_VERSION" ]; then
+          NEW_VERSION=1
+        else
+          NEW_VERSION=$((LATEST_VERSION + 1))
+        fi
+
+        # Set the new tag
+        echo "TAG=${{ env.TAG_BASE }}:${{ env.VERSION_PREFIX }}${NEW_VERSION}" >> $GITHUB_ENV
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag 4836297/postgres-application:$(date +%s)
-      
-    - name: Push The Docker image into docker hub
-      run: docker push 4836297/postgres-application:$(date +%s)
+      run: docker build . --file Dockerfile --tag ${{ env.TAG }}
+
+    - name: Push The Docker image into Docker Hub
+      run: docker push ${{ env.TAG }}
