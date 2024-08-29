@@ -14,5 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+    
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag 4836297/postgres-application:$(date +%s)
+      
+    - name: Push The Docker image into docker hub
+      run: docker push 4836297/postgres-application:$(date +%s)
