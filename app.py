@@ -28,9 +28,10 @@ def index():
 def add_contact():
     first_name = request.form['first_name']
     last_name = request.form['last_name']
-    phone_number = request.form['phone_number']
+    startvac = request.form['startvac']
+    endvac = request.form['endvac']
 
-    new_contact = Contact(first_name=first_name, last_name=last_name, phone_number=phone_number)
+    new_contact = Contact(first_name=first_name, last_name=last_name, startvac=startvac, endvac=endvac)
     db.session.add(new_contact)
     db.session.commit()
 

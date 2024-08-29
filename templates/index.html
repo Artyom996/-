@@ -6,15 +6,18 @@
     <title>Contact Form</title>
 </head>
 <body>
-    <h1>Add a New Contact</h1>
+    <h1>Add a vacation date</h1>
     <form action="/add_contact" method="post">
         <label for="first_name">First Name:</label>
         <input type="text" id="first_name" name="first_name" required><br><br>
         <label for="last_name">Last Name:</label>
         <input type="text" id="last_name" name="last_name" required><br><br>
-        <label for="phone_number">Phone Number:</label>
-        <input type="text" id="phone_number" name="phone_number" required><br><br>
-        <input type="submit" value="Add Contact">
+        <label for="startvac">Vacation start date:</label>
+        <input type="date" value="2024-01-01"><br><br>
+        <!-- <input type="text" id="phone_number" name="phone_number" required><br><br> -->
+        <label for="endvac">Vacation end date:</label>
+        <input type="date" value="2024-12-31"><br><br>
+        <input type="submit" value="Add to vacation list">
     </form>
 </body>
 </html>
