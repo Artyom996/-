@@ -34,7 +34,12 @@ def add_contact():
     db.session.add(new_contact)
     db.session.commit()
 
-    return redirect('/')
+    return redirect('/all-data')
+
+@app.route('/all-data')
+def all_data():
+    contacts = Contact.query.all()  # Извлекаем все контакты из базы данных
+    return render_template('all_data.html', contacts=contacts)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
