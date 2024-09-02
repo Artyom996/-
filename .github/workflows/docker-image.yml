@@ -48,15 +48,6 @@ jobs:
         cd target-repo
         git checkout master
 
-    - name: Update values.yaml
-      run: |
-        pwd
-        ls -la
-        cd target-repo
-        TAG="$GITHUB_RUN_NUMBER"
-        echo "Updating values.yaml with tag: $TAG"
-        sed -i "s/tag: .*/tag: $TAG/" application/values.yaml
-
     - name: Commit and Push Changes
       run: |
         git config --global user.name "github-actions"
