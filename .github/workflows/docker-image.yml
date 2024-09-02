@@ -58,6 +58,8 @@ jobs:
 
     - name: Commit and Push Changes
       run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
         cd target-repo
         git add application/values.yaml
         git commit -m "Update Docker image tag to $GITHUB_RUN_NUMBER"
