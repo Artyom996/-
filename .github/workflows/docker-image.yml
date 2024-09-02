@@ -49,6 +49,8 @@ jobs:
 
     - name: Update values.yaml
       run: |
+        pwd
+        ls -la
         TAG="$GITHUB_RUN_NUMBER"
         echo "Updating values.yaml with tag: $TAG"
         sed -i "s/tag: .*/tag: $TAG/" application/values.yaml
