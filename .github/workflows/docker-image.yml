@@ -43,7 +43,7 @@ jobs:
 
     - name: Clone Target Repo
       run: |
-        git clone git@github.com:Artyom996/manif.git target-repo
+        git clone https://github.com/Artyom996/manif.git target-repo
         cd target-repo
         git checkout master
 
@@ -61,6 +61,7 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
         cd target-repo
+        sed -i "s/tag: .*/tag: $TAG/" application/values.yaml
         git add application/values.yaml
         git commit -m "Update Docker image tag to $GITHUB_RUN_NUMBER"
         git push
