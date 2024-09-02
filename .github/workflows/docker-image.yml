@@ -40,6 +40,7 @@ jobs:
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
+        git config --global url."https://x-access-token:${{ secrets.TARGET_REPO_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
     - name: Clone Target Repo
       run: |
@@ -60,6 +61,7 @@ jobs:
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
+        git config --global url."https://x-access-token:${{ secrets.TARGET_REPO_TOKEN }}@github.com/".insteadOf "https://github.com/"
         cd target-repo
         sed -i "s/tag: .*/tag: $TAG/" application/values.yaml
         git add application/values.yaml
