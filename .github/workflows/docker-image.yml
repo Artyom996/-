@@ -43,7 +43,7 @@ jobs:
 
     - name: Clone Target Repo
       run: |
-        git clone https://github.com/Artyom996/manif.git target-repo
+        git clone git@github.com:Artyom996/manif.git target-repo
         cd target-repo
         git checkout master
 
