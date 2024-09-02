@@ -51,6 +51,7 @@ jobs:
       run: |
         pwd
         ls -la
+        cd target-repo
         TAG="$GITHUB_RUN_NUMBER"
         echo "Updating values.yaml with tag: $TAG"
         sed -i "s/tag: .*/tag: $TAG/" application/values.yaml
