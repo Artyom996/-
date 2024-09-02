@@ -40,4 +40,5 @@ jobs:
     - name: Run Custom Bash Script
       run: |
         echo "Running the manual script!"
+        pwd
         ./deploy.sh
