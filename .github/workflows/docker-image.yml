@@ -33,12 +33,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Current Repo
+      uses: actions/checkout@v4
 
     - name: Set up Git
       run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+
+    - name: Clone Target Repo
+      run: |
+        git clone https://github.com/Artyom996/manif.git target-repo
+        cd target-repo
+        git checkout master
 
     - name: Update values.yaml
       run: |
@@ -46,10 +53,11 @@ jobs:
         echo "Updating values.yaml with tag: $TAG"
         sed -i "s/tag: .*/tag: $TAG/" application/values.yaml
 
-    - name: Commit and push changes
+    - name: Commit and Push Changes
       run: |
+        cd target-repo
         git add application/values.yaml
         git commit -m "Update Docker image tag to $GITHUB_RUN_NUMBER"
         git push
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TARGET_REPO_TOKEN }}
