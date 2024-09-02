@@ -3,25 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All vacations list</title>
+    <title>All Vacations List</title>
+    <style>
+        body {
+            background: #f7f4f0;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #444;
+            text-shadow: 1px 1px 2px #aaa;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        form {
+            display: inline;
+        }
+
+        td form {
+            margin: 0;
+        }
+    </style>
 </head>
-<style>
-    body {
-        background: #faebd8;
-        width: 100%;
-        height: 100%;
-    }
-</style>
 <body>
-    <center>
     <h1>All Contacts</h1>
-    <table border="1">
+    <table>
         <tr>
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Vacation start date</th>
-            <th>Vacation end date</th>
+            <th>Vacation Start Date</th>
+            <th>Vacation End Date</th>
+            <th>Actions</th>
         </tr>
         {% for contact in contacts %}
         <tr>
@@ -31,17 +99,15 @@
             <td>{{ contact.startvac }}</td>
             <td>{{ contact.endvac }}</td>
             <td>
-                <form action="/delete_contact/{{ contact.id }}" method="post" style="display:inline;">
+                <form action="/delete_contact/{{ contact.id }}" method="post">
                     <button type="submit">Delete</button>
                 </form>
             </td>
         </tr>
         {% endfor %}
     </table>
-    <br>
-    <a href="/" style="text-decoration: none;">
+    <a href="/">
         <button>Back</button>
     </a>
-    </center>
 </body>
 </html>
