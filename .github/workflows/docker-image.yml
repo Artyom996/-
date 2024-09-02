@@ -28,14 +28,14 @@ jobs:
 
     - name: Check version
       run: echo "Docker image version is 4836297/postgres-application:$GITHUB_RUN_NUMBER"  
-
+  
   update-values:
     runs-on: ubuntu-latest
-    needs: [previous-step]
-
+    needs: build
+    
     steps:
     - name: Checkout Current Repo
-      uses: actions/checkout@v4
+      uses: actions/c heckout@v4
 
     - name: Set up Git
       run: |
