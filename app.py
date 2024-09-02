@@ -47,6 +47,16 @@ def add_contact():
 
     return redirect('/all-data')
 
+@app.route('/delete_contact/<int:id>', methods=['POST'])
+def delete_contact(id):
+    contact_to_delete = Contact.query.get_or_404(id)
+    try:
+        db.session.delete(contact_to_delete)
+        db.session.commit()
+        return redirect('/all-data')
+    except:
+        return 'There was a problem deleting that contact'
+
 @app.route('/all-data')
 def all_data():
     contacts = Contact.query.all()  # Извлекаем все контакты из базы данных

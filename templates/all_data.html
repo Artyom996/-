@@ -30,6 +30,11 @@
             <td>{{ contact.last_name }}</td>
             <td>{{ contact.startvac }}</td>
             <td>{{ contact.endvac }}</td>
+            <td>
+                <form action="/delete_contact/{{ contact.id }}" method="post" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
