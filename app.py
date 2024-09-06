@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import os
 
 app = Flask(__name__)
@@ -59,8 +60,29 @@ def delete_contact(id):
 
 @app.route('/all-data')
 def all_data():
-    contacts = Contact.query.all()  # Извлекаем все контакты из базы данных
-    return render_template('all_data.html', contacts=contacts)
+    contacts = Contact.query.all()
+    
+    # Подсчёт оставшихся дней отпуска
+    remaining_vacation_days = {}
+    total_vacation_days_per_year = 24
+    
+    # Группируем по имени и фамилии, считаем количество дней отпуска
+    for contact in contacts:
+        full_name = f"{contact.first_name} {contact.last_name}"
+        start_date = datetime.strptime(contact.startvac, '%Y-%m-%d')
+        end_date = datetime.strptime(contact.endvac, '%Y-%m-%d')
+        vacation_days_taken = (end_date - start_date).days + 1  # +1 чтобы включить последний день
+        
+        if full_name in remaining_vacation_days:
+            remaining_vacation_days[full_name] += vacation_days_taken
+        else:
+            remaining_vacation_days[full_name] = vacation_days_taken
+    
+    # Теперь вычисляем оставшиеся дни
+    for full_name in remaining_vacation_days:
+        remaining_vacation_days[full_name] = total_vacation_days_per_year - remaining_vacation_days[full_name]
+
+    return render_template('all_data.html', contacts=contacts, remaining_vacation_days=remaining_vacation_days)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

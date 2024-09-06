@@ -89,6 +89,7 @@
             <th>Last Name</th>
             <th>Vacation Start Date</th>
             <th>Vacation End Date</th>
+            <th>Remaining Vacation Days</th>
             <th>Actions</th>
         </tr>
         {% for contact in contacts %}
@@ -98,6 +99,10 @@
             <td>{{ contact.last_name }}</td>
             <td>{{ contact.startvac }}</td>
             <td>{{ contact.endvac }}</td>
+            <td>
+                {% set full_name = contact.first_name + ' ' + contact.last_name %}
+                {{ remaining_vacation_days.get(full_name, 24) }}  <!-- Отображаем оставшиеся дни отпуска -->
+            </td>
             <td>
                 <form action="/delete_contact/{{ contact.id }}" method="post">
                     <button type="submit">Delete</button>
