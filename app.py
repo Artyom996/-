@@ -64,7 +64,7 @@ def all_data():
     
     # Подсчёт оставшихся дней отпуска
     remaining_vacation_days = {}
-    total_vacation_days_per_year = 24
+    total_vacation_days_per_year = 25
     
     # Группируем по имени и фамилии, считаем количество дней отпуска
     for contact in contacts:
